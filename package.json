@@ -1,0 +1,24 @@
+{
+  "name": "test-this-pin-service",
+  "version": "1.0.0",
+  "description": "Service to provide pins.",
+  "main": "index.ts",
+  "scripts": {
+    "start": "npm run tsc && node build/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "tsc": "tsc"
+  },
+  "author": "Jase S Naut",
+  "license": "ISC",
+  "dependencies": {
+    "@types/express": "^4.17.0",
+    "@types/node": "^12.6.8",
+    "body-parser": "^1.19.0",
+    "ejs": "^2.6.2",
+    "express": "^4.17.1",
+    "i": "^0.3.6",
+    "npm": "^6.10.2",
+    "sqlite3": "^4.2.0",
+    "typescript": "^3.5.3"
+  }
+}
