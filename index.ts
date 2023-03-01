@@ -9,74 +9,31 @@ app.set("view engine", "ejs");
 // Render CSS Files
 app.use(express.static("public"));
 
-// Declaring todo and completed arrays.
-var task: string[], complete: string[];
-task = [];
-complete = [];
+// Declaring pin and completed arrays.
+type pin = {
+  id?: number,
+  value: string,
+  hasBeenTried: number
+};
 
-// Adding a new task.
-app.post("/addtask", function (req: any, res: any) {
-  var newTask = req.body.newtask;
-  // Add the new task from the post route
-  sqlite.addTask(newTask, function () {
-    res.redirect("/");
+var pinList: pin[];
+pinList = [];
+
+// Adding a new pin.
+app.post("/:id", (req: any, res: any) => {
+  var { hasBeenTried}: pin = req.body;
+  var id = req.params.id;
+  sqlite.editPin(id, hasBeenTried, () => {
+    res.send("Success");
   });
 });
 
-app.post("/removetask", function (req: any, res: any) {
-  var completeTask = req.body.check;
-  sqlite.completeTask(completeTask, function () {
-    res.redirect("/");
-  });
-});
-
-app.post("/clearcomplete", function(req: any, res:any){
-  sqlite.clearComplete(function(){
-    res.redirect("/");
-  });
-});
-
-// Render the ejs and display added task, completed task
-app.get("/", function (req: any, res: any) {
-  updateValues(function () {
-    res.render("index", { task: task, complete: complete });
+// Render the ejs and display added pin, completed pin
+app.get("/", (req: any, res: any) => {
+  sqlite.getPinList((pinList: pin[]) => {
+    res.send(pinList);
   });
 });
 
 // Set app to listen on port 3000
-app.listen(3000, function () {
-  updateValues(function () {
-    console.log("server is running on port 3000");
-  });
-});
-
-/**
- * Marks a task as completed.
- * @param completeTask Task to mark as completed.
- */
-function removeTask(completeTask: any) {
-  // Check for the "typeof" the different completed task, then add into the complete task
-  if (typeof completeTask === "string") {
-    complete.push(completeTask);
-    // Check if the completed task already exits in the task when checked, then remove it
-    task.splice(task.indexOf(completeTask), 1);
-  } else if (typeof completeTask === "object") {
-    for (var i = 0; i < completeTask.length; i++) {
-      complete.push(completeTask[i]);
-      task.splice(task.indexOf(completeTask[i]), 1);
-    }
-  }
-}
-
-/**
- * Updates the todo/done lists.
- */
-function updateValues(callback: any) {
-  sqlite.getTodoList(function (result: any) {
-    task = result;
-    sqlite.getDoneList(function (result: any) {
-      complete = result;
-      callback();
-    });
-  });
-}
+app.listen(3000, () => { console.log("server is running on port 3000"); });

@@ -1,4 +1,4 @@
-# todo-mini
+# pin-mini
 
 ## A simple To-Do App built with Node.js and Express.
 
@@ -26,4 +26,4 @@ http://localhost:3000/
 
 ### Special Thanks
 
-This app is inspired by [missating](https://github.com/missating)'s [nodejs-todo](https://github.com/missating/nodejs-todo) project. Thanks!
+This app is inspired by [missating](https://github.com/missating)'s [nodejs-pin](https://github.com/missating/nodejs-pin) project. Thanks!

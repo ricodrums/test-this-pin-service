@@ -1,6 +1,3 @@
-# SQLite
-*.db
-
 # Build
 build/
 
