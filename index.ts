@@ -21,9 +21,8 @@ pinList = [];
 
 // Adding a new pin.
 app.post("/:id", (req: any, res: any) => {
-  var { hasBeenTried}: pin = req.body;
   var id = req.params.id;
-  sqlite.editPin(id, hasBeenTried, () => {
+  sqlite.editPin(id, 1, () => {
     res.send("Success");
   });
 });

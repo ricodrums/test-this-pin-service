@@ -22,11 +22,9 @@ module.exports = {
     });
   },
 
-  editPin: (id: number, hasBeenTried: string, callback: any) => {
-    db.run("UPDATE pins SET hasBeenTried = $hasBeenTried WHERE id = $id", {
-      $hasBeenTried: hasBeenTried,
-      $id: id,
-    }, () => {
+  editPin: (id: number, hasBeenTried: number, callback: any) => {
+    db.run("UPDATE pins SET hasBeenTried=? WHERE id=?",
+    [ hasBeenTried, id ], () => {
       callback();
     });
   },
