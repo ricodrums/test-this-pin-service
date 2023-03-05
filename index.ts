@@ -1,6 +1,7 @@
 // Dependencies
 var express = require("express");
 var bodyParser = require("body-parser");
+var cors = require("cors");
 var app = express();
 var sqlite = require("./modules/sqlite3");
 
@@ -8,6 +9,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 // Render CSS Files
 app.use(express.static("public"));
+
+var corsOptions = {
+  origin: 'https://trythispin.vercel.app',
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}
 
 // Declaring pin and completed arrays.
 type pin = {
@@ -19,17 +25,24 @@ type pin = {
 var pinList: pin[];
 pinList = [];
 
-// Adding a new pin.
-app.post("/:id", (req: any, res: any) => {
+app.post("/:id", cors(corsOptions), (req: any, res: any) => {
   var id = req.params.id;
-  sqlite.editPin(id, 1, () => {
+  sqlite.editPinById(id, 1, () => {
+    res.send("Success");
+  });
+});
+
+app.post("/value/:value", cors(corsOptions), (req: any, res: any) => {
+  var value = req.params.value;
+  sqlite.editPinByValue(value, 1, () => {
     res.send("Success");
   });
 });
 
 // Render the ejs and display added pin, completed pin
-app.get("/", (req: any, res: any) => {
-  sqlite.getPinList((pinList: pin[]) => {
+app.get("/:id", cors(corsOptions), (req: any, res: any) => {
+  var id = req.params.id;
+  sqlite.getPinList(id, (pinList: pin[]) => {
     res.send(pinList);
   });
 });
