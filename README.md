@@ -2,11 +2,11 @@
 
 ## A simple To-Do App built with Node.js and Express.
 
-<div style="text-align:center"><img src="image.jpg" /></div>
-
 ## Installation
 
 1. Install all the required dependencies:
+
+Node 16.x
 
 ```bash
 npm install
@@ -23,7 +23,3 @@ npm run tsc && node build/index.js
 ```
 http://localhost:3000/
 ```
-
-### Special Thanks
-
-This app is inspired by [missating](https://github.com/missating)'s [nodejs-pin](https://github.com/missating/nodejs-pin) project. Thanks!
