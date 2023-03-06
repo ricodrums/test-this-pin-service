@@ -7,8 +7,6 @@ var sqlite = require("./modules/sqlite3");
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
-// Render CSS Files
-app.use(express.static("public"));
 
 var corsOptions = {
   origin: '*',
